@@ -9,7 +9,7 @@ var router = express.Router();
 var Gadget = require('../models/gadget');
 
 //GET main gadgets page
-router.get(function (req, res, next) {
+router.get ('/',function (req, res, next) {
     Gadget.find(function (err, gadgets) {
         if(err)
         {
@@ -21,7 +21,7 @@ router.get(function (req, res, next) {
             //loading gadget page and passing view
             res.render('gadgets', {
                 title: 'All the gadgets ',
-                gadgets: gadgetsS
+                gadgets: gadgets
             })
         }
     })
