@@ -12,7 +12,7 @@ var gadgetSchema = new mongoose.Schema({
         required: 'Please enter the gadget name'
     },
 
-    type: {
+    typeOfGadget: {
         type: String,
         required: 'Please enter type of the gadget'
     },

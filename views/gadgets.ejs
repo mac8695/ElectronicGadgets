@@ -1,13 +1,22 @@
 <% include partials/header.ejs%>
 
-<a href="addGadget.ejs">Add gadget for sale</a>
+<a href="/gadgets/add">Add gadget for sale</a>
 <table class="table table-striped">
-<tr>
-  <th>Gadget</th>
-  <th>Type</th>
-  <th>Price</th>
-  <th>Condition</th>
-</tr>
+  <tr>
+    <th>Gadget</th>
+    <th>Type</th>
+    <th>Price</th>
+    <th>Condition</th>
+  </tr>
+  <% for (var i=0; i< gadgets.length; i++) { %>
+  <tr>
+    <td><%= gadgets[i].gadget %></td>
+    <td><%= gadgets[i].typeOfGadget %></td>
+    <td><%= gadgets[i].price %></td>
+    <td><%= gadgets[i].condition %></td>
+
+  </tr>
+<%}%>
 </table>
 
 <%include partials/footer.ejs%>
