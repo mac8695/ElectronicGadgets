@@ -1,0 +1,27 @@
+<%include partials/header.ejs%>
+
+<h1> Fill Gadget Details</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="gadgets" class="col-sm-2 control-label">Gadget:</label>
+        <input name="gadget" id="gadget" required value="<%=gadget.gadget%>">
+    </div>
+    <div class="form-group">
+        <label for="typeOfGadget" class="col-sm-2 control-label">Type:</label>
+        <input name="typeOfGadget" id="typeOfGadget" required value="<%=gadget.typeOfGadget%>">
+    </div>
+    <div class="form-group">
+        <label for="price" class="col-sm-2 control-label">Price:</label>
+        <input name="price" id="price" required type="number" min="0" value="<%=gadget.price%>">
+    </div>
+    <div class="form-group">
+        <label for="condition" class="col-sm-2 control-label">Condition:</label>
+        <input name="condition"  id="condition" required value="<%=gadget.condition%>">
+    </div>
+
+    <button class="btn btn-info col-sm-offset-2">SUBMIT</button>
+
+</form>
+
+<%include partials/footer.ejs%>
