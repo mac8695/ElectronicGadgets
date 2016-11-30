@@ -18,6 +18,32 @@ var mongoose = require('mongoose');
 var config = require('./config/globalVars');
 mongoose.connect(config.db);
 
+// include passport packages
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
+var localStrategy = require('passport-local').Strategy;
+
+//initializing passport package
+app.use(flash());
+
+app.use(session({
+  secret: config.secret,
+    resave: true,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//link to Account model
+var Account = require('./models/account');
+passport.use(Account.createStrategy());
+
+//read and write users between passport and database
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

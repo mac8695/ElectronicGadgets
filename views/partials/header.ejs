@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title><%= title %></title>
-
+  <title><%=title %></title>
     <!--link to css-->
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
     <link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css" />
@@ -17,7 +16,16 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
+         <%if (!user){%>
+            <li><a href="/registration">Register</a></li>
+            <li><a href="/login">Login</a></li>
+           <% }
+            else {
+           %>
             <li><a href="/gadgets">Gadgets</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <div class ="navbar-right">Welcome <%= user.username %></div>
+            <%}%>
         </ul>
     </div>
 </nav>

@@ -18,7 +18,7 @@
     <td><%= gadgets[i].condition %></td>
 
     <td><a href="/gadgets/<%=gadgets[i]._id %>">Edit</a> </td>
-    <td><a href="/gadgets/delete/<%=gadgets[i]._id %>"  class="confirmation">Delete</a> </td>
+    <td><a href="/gadgets/delete/<%= gadgets[i]._id %>"  class="confirmation">Delete</a> </td>
 
   </tr>
 <%}%>

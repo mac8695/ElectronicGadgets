@@ -4,5 +4,6 @@
 
 //global variable
 module.exports = {
-    db: 'mongodb://mac861995:mac861995@ds155087.mlab.com:55087/assignment-2'
+    db: 'mongodb://mac861995:mac861995@ds155087.mlab.com:55087/assignment-2',
+    secret: 'random value for salting password'
 };

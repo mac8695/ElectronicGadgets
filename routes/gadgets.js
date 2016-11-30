@@ -7,9 +7,19 @@ var router = express.Router();
 
 //linking to gadget model
 var Gadget = require('../models/gadget');
-
+//auth check
+function  isLoggedIn(req,res,next) {
+if(req.isAuthenticated())
+{
+    next();
+}
+else
+{
+    res.redirect('/login');
+}
+}
 //GET main gadgets page
-router.get ('/',function (req, res, next) {
+router.get ('/',isLoggedIn,function (req, res, next) {
     Gadget.find(function (err, gadgets) {
         if(err)
         {
@@ -21,21 +31,24 @@ router.get ('/',function (req, res, next) {
             //loading gadget page and passing view
             res.render('gadgets', {
                 title: 'All the gadgets ',
-                gadgets: gadgets
-            })
+                gadgets: gadgets,
+                user: req.user
+            });
         }
-    })
+    });
 });
 
 /*GET request handler for form \** /gadgets/add**/
-router.get('/add',function (req, res, next) {
+router.get('/add',isLoggedIn,function (req, res, next) {
     res.render('addGadget',{
-        title:'add gadget'
+        title:'add gadget',
+        user: req.user
+
     });
 });
 
 /*POST request handler for form \** /gadgets/add**/
-router.post('/add',function (req, res, next) {
+router.post('/add',isLoggedIn,function (req, res, next) {
         //insert data in database
         Gadget.create(
             {
@@ -47,7 +60,7 @@ router.post('/add',function (req, res, next) {
                 if (err) {
                     console.log(err);
                     res.render('error',
-                        {message: 'Could not add gadget'})
+                        {message: 'Could not add gadget'});
                 }
                 else
                     {
@@ -57,13 +70,13 @@ router.post('/add',function (req, res, next) {
             });
     });
 // GET /gadgets/delete._id - to get delete id
-router.get('/delete/:_id', function(req, res, next)
+router.get('/delete/:_id', isLoggedIn,function(req, res, next)
     {
         // get the id from the url
-        var _id = req.param._id;
+        var _id = req.params._id;
 
         //delete the data with that id
-        Gadget.remove( { _id: _id }, function (err)
+        Gadget.remove( {_id: _id }, function (err)
             {
                 if(err)
                 {
@@ -82,13 +95,13 @@ router.get('/delete/:_id', function(req, res, next)
 });
 
 // GET /gadgets/_id - Display the edit page with pre-filled values
-router.get('/:_id', function (req, res, next)
+router.get('/:_id', isLoggedIn,function (req, res, next)
 {
     //get id of selected gadget from url
     var _id = req.params._id;
 
     //using mongoose schema to find gadget
-    Gadget.findById({_id:_id}, function (err, gadget)
+    Gadget.findById({ _id: _id}, function (err, gadget)
     {
         if (err)
         {
@@ -103,14 +116,16 @@ router.get('/:_id', function (req, res, next)
             res.render('editGadget',
                 {
                     title: 'Edit a Gadget',
-                    gadget: gadget
+                    gadget: gadget,
+                    user: req.user
                 });
         }
         
     });
 });
 //POST /gadgets/_id - process changes made in form and save it
-router.post('/:_id', function (res, req, next) {
+
+router.post('/:_id',isLoggedIn, function (res, req, next) {
     // get id of edited from the url
     var _id = req.params._id;
 
@@ -123,7 +138,7 @@ router.post('/:_id', function (res, req, next) {
         condition: req.body.condition
     });
     //updated view
-    Gadget.update({_id: id}, gadget, function (err) {
+    Gadget.update({_id: _id}, gadget, function(err) {
         if(err)
         {
             console.log(err);
@@ -134,7 +149,7 @@ router.post('/:_id', function (res, req, next) {
         }
         else
         {
-            res.render('/gadget');
+            res.render('/gadgets');
         }
     });
 });
