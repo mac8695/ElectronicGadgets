@@ -1,6 +1,13 @@
 <% include partials/header.ejs%>
 
-<a href="/gadgets/add">Add gadget for sale</a>
+<a href="/gadgets/add"><strong>Add gadget for sale</strong></a>
+
+<!--search box-->
+<form>
+  <input type="text" placeholder="Search Gadget..." required>
+  <input type="button" class="btn btn-info" value="search" >
+</form>
+
 <table class="table table-striped">
   <tr>
     <th>Gadget</th>
@@ -14,7 +21,7 @@
   <tr>
     <td><%= gadgets[i].gadget %></td>
     <td><%= gadgets[i].typeOfGadget %></td>
-    <td><%= gadgets[i].price %></td>
+    <td>$ <%= gadgets[i].price %></td>
     <td><%= gadgets[i].condition %></td>
 
     <td><a href="/gadgets/<%=gadgets[i]._id %>">Edit</a> </td>

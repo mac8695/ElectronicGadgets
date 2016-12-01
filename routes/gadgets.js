@@ -95,13 +95,12 @@ router.get('/delete/:_id', isLoggedIn,function(req, res, next)
 });
 
 // GET /gadgets/_id - Display the edit page with pre-filled values
-router.get('/:_id', isLoggedIn,function (req, res, next)
-{
+router.get('/:_id', isLoggedIn, function(req, res, next) {
     //get id of selected gadget from url
     var _id = req.params._id;
 
     //using mongoose schema to find gadget
-    Gadget.findById({ _id: _id}, function (err, gadget)
+    Gadget.findById( { _id: _id }, function(err,  gadget)
     {
         if (err)
         {
@@ -125,7 +124,7 @@ router.get('/:_id', isLoggedIn,function (req, res, next)
 });
 //POST /gadgets/_id - process changes made in form and save it
 
-router.post('/:_id',isLoggedIn, function (res, req, next) {
+router.post('/:_id', isLoggedIn, function(req, res, next) {
     // get id of edited from the url
     var _id = req.params._id;
 
@@ -138,7 +137,7 @@ router.post('/:_id',isLoggedIn, function (res, req, next) {
         condition: req.body.condition
     });
     //updated view
-    Gadget.update({_id: _id}, gadget, function(err) {
+    Gadget.update({ _id: _id }, gadget, function(err) {
         if(err)
         {
             console.log(err);
@@ -149,7 +148,7 @@ router.post('/:_id',isLoggedIn, function (res, req, next) {
         }
         else
         {
-            res.render('/gadgets');
+            res.redirect('/gadgets');
         }
     });
 });
