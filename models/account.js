@@ -8,6 +8,10 @@ var plm = require('passport-local-mongoose');
 
 var accountSchema = new mongoose.Schema({
 //empty schema
+
+    //social media id
+    oauthID: String,
+    created: Date
 });
 accountSchema.plugin(plm);
 

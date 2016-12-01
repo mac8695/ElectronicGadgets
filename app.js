@@ -40,6 +40,50 @@ app.use(passport.session());
 var Account = require('./models/account');
 passport.use(Account.createStrategy());
 
+// configuring facebook login
+var facebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new facebookStrategy({
+        clientID: config.ids.facebook.clientID,
+        clientSecret: config.ids.facebook.clientSecret,
+        callbackURL: config.ids.facebook.callbackURL
+    },
+    function(accessToken, refreshToken, profile, cb) {
+
+        Account.findOne({oauthID: profile.id}, function (err, user) {
+          if (err){
+            console.log(err);
+          }
+          else
+          {
+              if(user !== null)
+              {
+                  cb(null, user);
+              }
+              else
+              {
+                // adding fb user
+                  user = new Account({
+                    oauthID: profile.id,
+                      username: profile.displayName,
+                      created: Date.now()
+                  });
+
+                  user.save(function (err) {
+                    if(err) {
+                        console.log(err);
+                    }
+                    else
+                    {
+                      cb(null, user);
+                    }
+                  });
+              }
+          }
+        });
+    }
+));
+
 //read and write users between passport and database
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());

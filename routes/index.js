@@ -38,7 +38,7 @@ function (err,account) {
     }
 });
 });
-//get login
+//GET login
 router.get('/login',function (req, res ,next) {
     var messages = req.session.messages || [];
 
@@ -64,4 +64,16 @@ router.get('/logout',function (req, res, next) {
     req.logout();
     res.redirect('/login');
 });
+//route handler for facebook
+router.get('/facebook', passport.authenticate('facebook'),
+    function(req, res, next) {});
+
+router.get('/facebook/callback', passport.authenticate('facebook',{
+    failureRedirect:'/login',
+    failureMessage: 'Invalid Login'
+    }),
+    function(req, res, next) {
+        // Successful authentication, redirect home.
+        res.redirect('/gadgets');
+    });
 module.exports = router;
