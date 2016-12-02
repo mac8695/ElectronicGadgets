@@ -1,6 +1,17 @@
 <% include partials/header.ejs%>
 
+<style>
+    h1.intro {
+        color: blue;
+    }
+
+    p.important {
+        color: green;
+        font-family: "Century Gothic";
+        font-size: large;
+    }
+</style>
     <h1><%= title %></h1>
-    <p>Welcome to <%= message %></p>
+    <p class="important" >Welcome to <%= message %></p>
 
 <%include partials/footer.ejs%>

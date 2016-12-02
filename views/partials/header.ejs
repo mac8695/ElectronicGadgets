@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title><%=title %></title>
-    <!--link to css-->
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
-    <link rel="stylesheet" href="/stylesheets/bootstrap-theme.min.css" />
 
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%=title %></title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <!--<link href="css/sb-admin.css" rel="stylesheet">-->
+
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<nav class="navbar navbar-default">
+
+<div id="wrapper">
+<nav class="navbar navbar-default navbar-inverse">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Electronic Gadgets</a>
+            <a class="navbar-brand" href="/">Electronic Gadgets</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
@@ -24,8 +37,28 @@
            %>
             <li><a href="/gadgets">Gadgets</a></li>
             <li><a href="/logout">Logout</a></li>
-            <div class ="navbar-right">Welcome <%= user.username %></div>
+
+            <!--search box-->
+            <form class="navbar-form navbar-left" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
             <%}%>
         </ul>
+        <%if (user){%>
+        <div class ="nav navbar-text pull-right">Welcome <%= user.username %></div>
+        <%}%>
     </div>
 </nav>
+
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">

@@ -10,7 +10,9 @@ var flash = require('connect-flash');
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Assignment-2',
-    message: 'Gadget byuing and selling application',
+    message: 'This CRUD Web Application is built using Node, Express JS for Advance web development final assignment.' +
+    'User can LOGIN using facebook.' +
+    'In this application only registered users can add gadget for sale or can view gadgets on sale.',
       user: req.user
   });
 });
